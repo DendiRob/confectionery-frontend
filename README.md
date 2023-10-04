@@ -14,7 +14,7 @@
 - [Будущее проекта](#future)
 - [Благодарности](#thanks)
 
-<a name="#runprojects"></a>
+<a name="runprojects"></a>
 ## Установка и заупск
 папка pictures в паблик
 <a name="workflow"></a>
