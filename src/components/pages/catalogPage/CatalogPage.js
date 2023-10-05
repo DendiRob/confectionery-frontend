@@ -64,6 +64,9 @@ const CatalogPage = () => {
             <div className="catalog">
                 <div className="container">
                     <h1 className="catalog__title">Каталог товаров</h1>
+                    <div className="catalog__priceWarning">
+                        <div>ВНИМАНИЕ!<br /> Цена может изменяться в зависимости от стоимости сырья</div>
+                    </div>
                     <div className="catalog__products-wrapper">
                         <img
                             alt="arrowUp" 
