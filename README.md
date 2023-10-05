@@ -16,6 +16,8 @@
 
 <a name="runproject"></a>
 ## Установка и заупск
+Для начала установите и запустите [backend](https://github.com/DendiRob/confectionery-backend), так как некоторые компоненты напрямую зависят от бэкенд-части.<br><br>
+**Запуск Frontend-части:**<br><br>
 Клонируйте репозиторий на ваш компьютер
 ```bash
 git clone https://github.com/DendiRob/confectionery-frontend.git
