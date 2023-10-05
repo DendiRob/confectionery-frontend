@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const backendApi = process.env.REACT_APP_API_URL;
+const backendApi = "http://localhost:3004";
 
 export const fetchProducts = createAsyncThunk(
     'catalogState/fetchProducts',
