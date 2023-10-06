@@ -7,7 +7,7 @@ import ScrollToTop from '../../scrollToTop/ScrollToTop';
 const Page404 = lazy(() => import('../pages/404'));
 const MainPage = lazy(() => import('../pages/mainPage/MainPage'));
 const VacancyPage = lazy(() => import('../pages/vacancyPage/VacancyPage'));
-const ContactsPage = lazy(() => import('../pages/contactsPage/ContactsPage'));
+const ContactsPage = lazy(() => import('../pages/contactsPage/ContactsPage.tsx'));
 const DeliveryAndPaymentPage = lazy(() => import('../pages/deliveryAndPaymentPage/DeliveryAndPaymentPage'));
 const CatalogPage = lazy(() => import('../pages/catalogPage/CatalogPage'));
 const SingleProductPage = lazy(() => import('../pages/singleProductPage/SingleProductPage'));

@@ -9,7 +9,8 @@ import viber from '../../../resources/icons/contactsPage/viber.svg';
 import './contactsPage.scss';
 import './contactPage-media.scss';
 
-const ContactsPage = () => {
+const ContactsPage: React.FC = (): JSX.Element => {
+
     return (
         <>
             <Helmet>
