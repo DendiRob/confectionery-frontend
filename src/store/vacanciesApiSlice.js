@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const backendApi = process.env.REACT_APP_API_URL;
+const backendApi = "http://127.0.0.1:3004";
 
 const vacanciesApiSlice = createApi({
     reducerPath: 'vacanciesApi',

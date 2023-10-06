@@ -86,7 +86,7 @@ const SingleProductPage = () => {
                                     <div className="single-info_price">
                                         <div className="single-info_price__warning">
                                             <img src={priceWarning} alt="price-warning" />                                                                                    
-                                            Цена может изменяться в зависимости от сырья</div>
+                                            Цена может изменяться в зависимости от стоимости сырья</div>
                                         <div className="single-info_price_value" >{price} руб/кг</div>
                                         <button onClick={() => dispatch(addItem(item))} disabled={basketStatus} className="single-info__add">
                                             {basketStatus ? 
