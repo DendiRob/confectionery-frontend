@@ -43,7 +43,7 @@ npm start
 - BasketCard
 - Menu (мобильная версия меню)
 - modals (все окна)
-- ProductCard
+- CatalogCard
 - VacancyCard
 
 При разработке компонентов, я использовал Redux Toolkit (thunk/query) для управления состоянием компонентов и выполнения асинхронных запросов к бэкенду. Для стилизации компонентов мы воспользовались препроцессором SCSS и методологией БЭМ.
@@ -62,6 +62,7 @@ npm start
 - swiper
 - @reduxjs/toolkit
 - @pbe/react-yandex-maps
+- TypeScript
   
 <a name="backend"></a>
 ## Взаимодействие с бэкендом
