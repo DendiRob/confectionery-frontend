@@ -60,8 +60,8 @@ npm start
 - react-router-dom
 - scss
 - swiper
-- @reduxjs/toolkit
-- @pbe/react-yandex-maps
+- RTK(thunk/query)
+- react-yandex-maps
 - TypeScript
   
 <a name="backend"></a>
