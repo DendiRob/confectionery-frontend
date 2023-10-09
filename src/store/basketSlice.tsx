@@ -1,12 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { basketItemType } from "../modelTypes/basketTypes";
+
 const backendApi = "http://localhost:3004";
 
-<<<<<<< HEAD:src/store/basketSlice.js
-const backendApi = "http://localhost:3004";
-
-
-=======
 type initialStatesType = {
     basketItems: basketItemType[],
     totalAmount: number,
@@ -15,7 +11,6 @@ type initialStatesType = {
     orderSuccessModal:boolean,
 }
 // I  use '' because the value of local storage is null before we render the component or call the function.
->>>>>>> ts-version:src/store/basketSlice.tsx
 const items =
   localStorage.getItem("basketItems") !== null
     ? JSON.parse(localStorage.getItem("basketItems") || '')

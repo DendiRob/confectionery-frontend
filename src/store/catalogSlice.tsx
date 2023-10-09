@@ -12,10 +12,6 @@ type initialStateTypes = {
 }
 
 
-<<<<<<< HEAD:src/store/catalogSlice.js
-const backendApi = "http://localhost:3004";
-=======
->>>>>>> ts-version:src/store/catalogSlice.tsx
 
 export const fetchProducts = createAsyncThunk(
     'catalogState/fetchProducts',

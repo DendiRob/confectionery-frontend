@@ -1,12 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-<<<<<<< HEAD:src/store/productsApiSlice.js
-const backendApi = "http://localhost:3004";
-=======
+
 import { productType } from '../modelTypes/catalogTypes';
 
 const backendApi = "http://localhost:3004";
-
->>>>>>> ts-version:src/store/productsApiSlice.tsx
 
 const productsApiSlice = createApi({
     reducerPath: 'productsApi',
