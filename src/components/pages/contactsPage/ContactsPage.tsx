@@ -6,10 +6,10 @@ import phone from '../../../resources/icons/contactsPage/phone.svg';
 import emailIcon from '../../../resources/icons/contactsPage/email.svg';
 import viber from '../../../resources/icons/contactsPage/viber.svg';
 
-import './contactsPage.scss';
-import './contactPage-media.scss';
+import './ContactsPage.scss';
+import './ContactPage-media.scss';
 
-const ContactsPage: React.FC = (): JSX.Element => {
+const ContactsPage = () => {
 
     return (
         <>

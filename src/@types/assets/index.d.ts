@@ -1,4 +1,4 @@
-declare module "\*.svg" {
+  declare module "\*.svg" {
     const ReactComponent: any;
     export default ReactComponent;
   }
@@ -13,6 +13,10 @@ declare module "\*.svg" {
   }
   
   declare module "\*.json" {
+    const content: string;
+    export default content;
+  }
+  declare module "\*.gif" {
     const content: string;
     export default content;
   }
