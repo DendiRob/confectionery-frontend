@@ -4,7 +4,6 @@ import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 
 const YandexMap = () => {
   return (
-    <div className='yandexMap'>
         <YMaps
           enterprise
           query={{
@@ -21,7 +20,6 @@ const YandexMap = () => {
           <Placemark geometry={[54.345170, 48.594249]} />
         </Map>
       </YMaps>
-      </div>
   );
 };
 

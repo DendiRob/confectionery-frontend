@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import YandexMapDelivery from './yandexMapDelivery';
+import YandexMap from '../../YandexMap/YandexMap';
 
 import bicycle from '../../../resources/img/DeliveryAndPaymentPage/truck.svg';
 import logo from '../../../resources/img/DeliveryAndPaymentPage/logo_img.png';
@@ -53,7 +53,9 @@ const DeliveryAndPaymentPage = () => {
                         </div>
                         <div className="delivery__block_image"><img src={logo} alt="logo" /></div>
                     </div>
-                    <YandexMapDelivery />
+                    <div className='delivery__map'>
+                        <YandexMap />
+                    </div>
                 </div>
             </div>
         </>

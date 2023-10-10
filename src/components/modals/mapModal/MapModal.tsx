@@ -2,7 +2,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 
 
-import YandexMap from "./YandexMap";
+import YandexMap from "../../YandexMap/YandexMap";
 import closeIcon from '../../../resources/icons/mapModal/closeIcon.svg';
 import { closeModal } from "../../../store/mapModalSlice";
 
@@ -52,7 +52,9 @@ const MapModal = () => {
                     </div>
                     <div className="mapModal__window_infoBlock-describe">Мы ваc ждем!</div>
                 </div>
-                <YandexMap />
+                <div className='yandexMap'>
+                    <YandexMap />
+                </div>
                 <img onClick={(e) => dispatch(closeModal())} alt="closeIcon" src={closeIcon} className="mapModal__window_close"/>
             </div>
         </div>
