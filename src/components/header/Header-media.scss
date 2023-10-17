@@ -26,10 +26,20 @@
             justify-content: space-between;
             align-items: center;
             &_wrapper {
-                width: 90px;
+                width: 120px;
             }
             &_elem{
                 width: 30px;
+                &-accBusket {
+                    width: 60px;
+                    justify-content: flex-start;
+                }
+            }
+            &_enterAccIcon {
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
             }
             &_tag {
                 display: none;

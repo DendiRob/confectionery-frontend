@@ -12,6 +12,7 @@ import phoneIcon from '../../resources/icons/header/phoneicon.svg';
 import basketIcon from '../../resources/icons/header/basketicon.svg';
 import burgerIcon from '../../resources/icons/header/burgericon.svg'
 import logo from '../../resources/icons/header/logo2.png';
+import enterAccIcon from '../../resources/icons/header/eneteraccount.svg';
 
 import './Header.scss';
 import './Header-media.scss';
@@ -24,18 +25,8 @@ function Header() {
     
     const dispatch = useAppDispatch();
     const {totalQuantity} = useAppSelector(state => state.basketStates);
-
-    function typeOfWords(int: number): string {
-        let array: string[];
-        return (array = ['товар', 'товара', 'товаров']) &&
-         array[
-            (int % 100 > 4 && int % 100 < 20)
-            ?
-            2 : 
-            [2, 0, 1, 1, 1, 2][(int % 10 < 5) ? int % 10 : 5]
-        ];
-    }
     
+
     return(
         <>
             <div className="header" id='header'>
@@ -44,23 +35,25 @@ function Header() {
                     <div className="container">
                         <div className="header__top">
                             <div className='header__top_wrapper'>
-                            <div className="header__top_elem">
-                                <img className='header__top_cityIcon' onClick={() => dispatch(openModal())} src={cityIcon} alt='cityIcon'/>
-                                <div className="header__top_tag" onClick={() => dispatch(openModal())}>Ульяновск..</div>
-                            </div>
-                            <div className="header__top_elem">
-                                <a href="tel: +78889993344" className="header__top_phoneIcon">
-                                    <img className='header__top_phoneIcon' src={phoneIcon} alt='phoneIcon'/>
-                                </a>
-                                <a href="tel: +79050366380" className="header__top_tag">8 905 036-63-80</a>
-                            </div>
-                            <div className="header__top_elem">
-                                <Link to='/basket' className="header__top_basketIcon">
-                                    <img className='header__top_basketIcon' src={basketIcon} alt='basketIcon'/>
-                                    <div className="header__top_basketIcon-counter">{totalQuantity}</div> 
-                                </Link>
-                                <Link to='/basket' className="header__top_tag">В корзине ({totalQuantity} {typeOfWords(totalQuantity)})</Link>
-                            </div>
+                                <div className="header__top_elem">
+                                    <img className='header__top_cityIcon' onClick={() => dispatch(openModal())} src={cityIcon} alt='cityIcon'/>
+                                    <div className="header__top_tag" onClick={() => dispatch(openModal())}>Ульяновск..</div>
+                                </div>
+                                <div className="header__top_elem">
+                                    <a href="tel: +78889993344" className="header__top_phoneIcon">
+                                        <img className='header__top_phoneIcon' src={phoneIcon} alt='phoneIcon'/>
+                                    </a>
+                                    <a href="tel: +79050366380" className="header__top_tag">8 905 036-63-80</a>
+                                </div>
+                                <div className="header__top_elem header__top_elem-accBusket">
+                                    <Link to='/basket' className="header__top_basketIcon">
+                                        <img className='header__top_basketIcon' src={basketIcon} alt='basketIcon'/>
+                                        <div className="header__top_basketIcon-counter">{totalQuantity}</div> 
+                                    </Link>
+                                    <div className='header__top_enterAccIcon'>
+                                        <img src={enterAccIcon} alt="enter in acc" />
+                                    </div>
+                                </div>
                             </div>
                             <img onClick={() => dispatch(openMenu())} className='header__top_burgerIcon' alt='burgerIcon' src={burgerIcon}/>
                         </div>
