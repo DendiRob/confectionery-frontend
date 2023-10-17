@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { basketItemType } from "../modelTypes/basketTypes";
 
-const backendApi = "http://localhost:3004";
+const backendApi = process.env.REACT_APP_BACK_URL;
 
 type initialStatesType = {
     basketItems: basketItemType[],

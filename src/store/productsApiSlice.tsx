@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { productType } from '../modelTypes/catalogTypes';
 
-const backendApi = "http://localhost:3004";
+const backendApi = process.env.REACT_APP_BACK_URL;
 
 const productsApiSlice = createApi({
     reducerPath: 'productsApi',

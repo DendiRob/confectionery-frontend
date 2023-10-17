@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productType } from "../modelTypes/catalogTypes";
 
-const backendApi = "http://localhost:3004";
+const backendApi = process.env.REACT_APP_BACK_URL;
 
 type initialStateTypes = {
     dataCatalog: productType[],

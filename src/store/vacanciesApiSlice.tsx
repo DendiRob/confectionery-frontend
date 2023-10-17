@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { vacancyCardType, vacancyInfoType } from '../modelTypes/vacancyTypes';
 
-const backendApi = "http://localhost:3004";
+const backendApi = process.env.REACT_APP_BACK_URL;
 
 const vacanciesApiSlice = createApi({
     reducerPath: 'vacanciesApi',

@@ -19,8 +19,7 @@ const VacancyInfoPage = lazy(() => import('../pages/vacancyInfoPage/VacancyInfoP
 
 
 const App = () => {
-
-
+    
     return(
         <Router>
             <ScrollToTop />
