@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import MapModal from '../modals/mapModal/MapModal';
 import Menu from '../menu/Menu';
@@ -16,7 +17,7 @@ import enterAccIcon from '../../resources/icons/header/eneteraccount.svg';
 
 import './Header.scss';
 import './Header-media.scss';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+
 
 
 
@@ -72,6 +73,7 @@ function Header() {
                 </div>
             </div>
             <MapModal />
+
         </>
         )
 }
