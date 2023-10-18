@@ -1,0 +1,83 @@
+.loginModal {
+    width: 300px;
+    height: 380px;
+    background-color: #984b46;
+    border-radius: 20px;
+    position: relative;
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        position: fixed;
+        z-index: 10;
+        top: 0;
+    }
+    &__title {
+        color:  #fff;
+        font-size: 27px;
+        text-align: center;
+        margin-top: 25px;
+    }
+    &__form {
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+        width: 270px;
+        &_input {
+            width: 100%;
+            margin-bottom: 20px;
+            height: 50px;
+            border-radius: 10px;
+            padding-left: 20px;
+            font-size: 17px;
+            outline: none;
+            &-check {
+                width: 23px;
+                height: 23px;
+                border: none;
+                margin: 0;
+                margin-left: 3px;
+                margin-top: 3px;
+            }
+            &-checkTitle {
+                font-size: 15px;
+                color: #fff;
+                margin-left: 10px;
+                a {
+                    color: #fff;
+                }
+
+            }
+        }
+        &_registration {
+            color: #fff;
+            font-size: 17px;
+            text-align: center;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+        &_button {
+            display: block;
+            width: 230px;
+            height: 40px;
+            margin: 0 auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        &_checkDiv {
+            display: flex;
+        }
+    }
+    &__close {
+        position: absolute;
+        top: 7px;
+        right: 8px;
+        cursor: pointer;
+    }
+}

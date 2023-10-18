@@ -6,6 +6,7 @@ import CatalogSlice from './catalogSlice';
 import basketSlice from './basketSlice';
 import mapModalReduser from './mapModalSlice';
 import menuReduser from './menuSlice';
+import loginSlice from './loginSlice';
 
 const rootReducer = combineReducers({
     mapModalState: mapModalReduser,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     vacanciesApi: vacanciesApiSlice.reducer,
     catalogStates: CatalogSlice,
     basketStates: basketSlice,
+    loginStates: loginSlice,
 })
 
 const store = () =>{

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import MapModal from '../modals/mapModal/MapModal';
 import Menu from '../menu/Menu';
+import LoginModal from '../modals/loginModal/LoginModal';
 
 import { openMenu } from '../../store/menuSlice';
 import { openModal } from '../../store/mapModalSlice';
@@ -17,6 +18,7 @@ import enterAccIcon from '../../resources/icons/header/eneteraccount.svg';
 
 import './Header.scss';
 import './Header-media.scss';
+import { openLoginModal } from '../../store/loginSlice';
 
 
 
@@ -52,7 +54,7 @@ function Header() {
                                         <div className="header__top_basketIcon-counter">{totalQuantity}</div> 
                                     </Link>
                                     <div className='header__top_enterAccIcon'>
-                                        <img src={enterAccIcon} alt="enter in acc" />
+                                        <img src={enterAccIcon} alt="enter in acc" onClick={() => dispatch(openLoginModal())}/>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +75,7 @@ function Header() {
                 </div>
             </div>
             <MapModal />
-
+            <LoginModal />
         </>
         )
 }
