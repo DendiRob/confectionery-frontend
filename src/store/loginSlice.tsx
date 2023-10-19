@@ -1,10 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type initialStateTypes = {
-    isModalActive: boolean
+    isModalActive: boolean,
+    isRegisterFormOpen:boolean,
 };
-const initialState = {
-    isModalActive: false
+const initialState: initialStateTypes = {
+    isModalActive: false,
+    isRegisterFormOpen: false,
 }
 
 
@@ -17,7 +19,7 @@ const LoginSlice = createSlice({
         },
         closeLoginModal(state) {
             state.isModalActive = false
-        }
+        },
     },
 })
 export default LoginSlice.reducer;

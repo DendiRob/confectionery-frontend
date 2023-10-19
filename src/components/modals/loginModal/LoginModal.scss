@@ -1,6 +1,6 @@
 .loginModal {
     width: 300px;
-    height: 380px;
+    padding-bottom: 20px;
     background-color: #984b46;
     border-radius: 20px;
     position: relative;
@@ -53,11 +53,14 @@
             }
         }
         &_registration {
+            display: flex;
+            justify-content: center;
             color: #fff;
             font-size: 17px;
-            text-align: center;
             margin-top: 5px;
-            cursor: pointer;
+            div {
+                cursor: pointer;
+            }
         }
         &_button {
             display: block;

@@ -20,12 +20,17 @@ const LoginModal = () => {
     const [passwordValue, setPasswordValue] = useState('');
     const [passwordRequired, setPasswordRequired] = useState(true);
     const [checked, setChecked] = useState(false);
+    const [emailValue, setEmailValue] = useState('')
+    const [emailRequired, setEmailRequired] = useState(true)
     const [isRegistartionForm, setRegistartionForm] = useState(false)
 
     const changeCheckBox: React.ChangeEventHandler<HTMLInputElement> = () => {
         setChecked(!checked)
     }
-
+    const onEmailChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        setEmailValue(e.target.value)
+        setEmailRequired(true)
+    }
     const onLoginChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setLoginValue(e.target.value);
         setLoginRequired(true)
@@ -38,7 +43,7 @@ const LoginModal = () => {
         //this function send data to server
     }
     const onRegistartionForm = () => {
-        setRegistartionForm(true)
+        setRegistartionForm(!isRegistartionForm)
     }
 
 
@@ -52,8 +57,21 @@ const LoginModal = () => {
         >
             <div className="loginModal" onClick={(e) => e.stopPropagation()}>
                 <img src={closeIcon} alt="closeModal" className="loginModal__close" onClick={(e) => dispatch(closeLoginModal())}/>
-                <div className="loginModal__title">Войти</div>
+                <div className="loginModal__title">{isRegistartionForm ? "Регистрация" : "Войти"}</div>
                 <form className='loginModal__form'>
+                    {
+                        isRegistartionForm ? 
+                        <input
+                        type="text"
+                        value={emailValue}
+                        onChange={e => onEmailChange(e)}
+                        className='loginModal__form_input loginModal__form_input-login'
+                        placeholder="Почта"
+                        style={{border: emailRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
+                        />
+                        :
+                        ''
+                    }
                     <input
                     type="text"
                     value={loginValue}
@@ -82,9 +100,11 @@ const LoginModal = () => {
                         </div>
                     </div>
                 </form>
-                <button className='loginModal__form_button' onClick={onButtonClick}>Войти</button>
-                <div className="loginModal__form_registration" onClick={onRegistartionForm}>Регистрация</div>
-            </div>
+                <button className='loginModal__form_button' onClick={onButtonClick}>{isRegistartionForm ? "Зарегистрироваться" : "Войти"}</button>
+                <div className="loginModal__form_registration">
+                    <div onClick={onRegistartionForm}>{isRegistartionForm ? "Войти" : "Регистрация"}</div>
+                </div>
+            </div> 
         </div>
     )
 }
