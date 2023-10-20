@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 
@@ -20,12 +20,18 @@ const LoginModal = () => {
     const [passwordValue, setPasswordValue] = useState('');
     const [passwordRequired, setPasswordRequired] = useState(true);
     const [checked, setChecked] = useState(false);
-    const [emailValue, setEmailValue] = useState('')
-    const [emailRequired, setEmailRequired] = useState(true)
-    const [isRegistartionForm, setRegistartionForm] = useState(false)
+    const [emailValue, setEmailValue] = useState('');
+    const [emailRequired, setEmailRequired] = useState(true);
+    const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
+    const [repeatPasswordRequired, setRepeatPasswordRequired] = useState(true)
+    const [isRegistartionForm, setRegistartionForm] = useState(false);
 
     const changeCheckBox: React.ChangeEventHandler<HTMLInputElement> = () => {
         setChecked(!checked)
+    }
+    const onRepeatPasswordChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        setRepeatPasswordValue(e.target.value)
+        setRepeatPasswordRequired(true)
     }
     const onEmailChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setEmailValue(e.target.value)
@@ -39,24 +45,28 @@ const LoginModal = () => {
         setPasswordValue(e.target.value);
         setPasswordRequired(true)
     }
-    const onButtonClick:    React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         //this function send data to server
     }
     const onRegistartionForm = () => {
         setRegistartionForm(!isRegistartionForm)
+    }
+    const onCloseModal = (e: MouseEvent) => {
+        setRegistartionForm(false)
+        dispatch(closeLoginModal())
     }
 
 
     return(
         <div 
         className="loginModal__wrapper" 
-        onClick={() => dispatch(closeLoginModal())}
+        onClick={onCloseModal}
         style={{
             display: isModalActive? "flex": "none",
         }}
         >
             <div className="loginModal" onClick={(e) => e.stopPropagation()}>
-                <img src={closeIcon} alt="closeModal" className="loginModal__close" onClick={(e) => dispatch(closeLoginModal())}/>
+                <img src={closeIcon} alt="closeModal" className="loginModal__close" onClick={onCloseModal}/>
                 <div className="loginModal__title">{isRegistartionForm ? "Регистрация" : "Войти"}</div>
                 <form className='loginModal__form'>
                     {
@@ -88,6 +98,19 @@ const LoginModal = () => {
                     placeholder="Пароль"
                     style={{border: passwordRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
                     />
+                    {
+                        isRegistartionForm ? 
+                        <input
+                        type="text"
+                        value={repeatPasswordValue}
+                        onChange={e => onRepeatPasswordChange(e)}
+                        className='loginModal__form_input loginModal__form_input-login'
+                        placeholder="Повторите пароль"
+                        style={{border: repeatPasswordRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
+                        />
+                        :
+                        ''
+                    }
                     <div className="loginModal__form_checkDiv">
                         <input 
                         type='checkbox'
@@ -96,7 +119,7 @@ const LoginModal = () => {
                         className='loginModal__form_input loginModal__form_input-check'
                         />
                         <div className='loginModal__form_input-checkTitle'>
-                            Я согласен с <Link to='/privacypolicy'>политикой обработки персональных данных</Link>
+                            Я согласен с <Link to='/privacypolicy' onClick={onCloseModal}>политикой обработки персональных данных</Link>
                         </div>
                     </div>
                 </form>
