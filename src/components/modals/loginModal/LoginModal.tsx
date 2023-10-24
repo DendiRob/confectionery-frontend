@@ -6,7 +6,7 @@ import closeIcon from '../../../resources/icons/loginModal/closeIcon.svg';
 
 import './LoginModal.scss';
 import './LoginModal-media.scss';
-import { closeLoginModal } from '../../../store/loginSlice';
+import { closeLoginModal, login, registration } from '../../../store/loginSlice';
 
 //ещё политику надо добавить
 
@@ -14,16 +14,20 @@ const LoginModal = () => {
 
     const isModalActive = useAppSelector(state => state.loginStates.isModalActive)
     const dispatch = useAppDispatch()
+    
 
-    const [loginValue, setLoginValue] = useState('');
-    const [loginRequired, setLoginRequired] = useState(true);
-    const [passwordValue, setPasswordValue] = useState('');
-    const [passwordRequired, setPasswordRequired] = useState(true);
-    const [checked, setChecked] = useState(false);
+    //email
     const [emailValue, setEmailValue] = useState('');
     const [emailRequired, setEmailRequired] = useState(true);
+    //password
+    const [passwordValue, setPasswordValue] = useState('');
+    const [passwordRequired, setPasswordRequired] = useState(true);
+    //repeatpassword    
     const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
     const [repeatPasswordRequired, setRepeatPasswordRequired] = useState(true)
+    //checkebox
+    const [checked, setChecked] = useState(false);
+    //login or registration
     const [isRegistartionForm, setRegistartionForm] = useState(false);
 
     const changeCheckBox: React.ChangeEventHandler<HTMLInputElement> = () => {
@@ -37,16 +41,21 @@ const LoginModal = () => {
         setEmailValue(e.target.value)
         setEmailRequired(true)
     }
-    const onLoginChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setLoginValue(e.target.value);
-        setLoginRequired(true)
-    }
     const onPasswordChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setPasswordValue(e.target.value);
         setPasswordRequired(true)
     }
     const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-        //this function send data to server
+            const loginDto = {
+                email: emailValue,
+                password: passwordValue
+            }
+            if(isRegistartionForm){
+            dispatch(registration(loginDto))
+
+            }else{
+                dispatch(login(loginDto))
+            }
     }
     const onRegistartionForm = () => {
         setRegistartionForm(!isRegistartionForm)
@@ -69,29 +78,16 @@ const LoginModal = () => {
                 <img src={closeIcon} alt="closeModal" className="loginModal__close" onClick={onCloseModal}/>
                 <div className="loginModal__title">{isRegistartionForm ? "Регистрация" : "Войти"}</div>
                 <form className='loginModal__form'>
-                    {
-                        isRegistartionForm ? 
-                        <input
-                        type="text"
-                        value={emailValue}
-                        onChange={e => onEmailChange(e)}
-                        className='loginModal__form_input loginModal__form_input-login'
-                        placeholder="Почта"
-                        style={{border: emailRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
-                        />
-                        :
-                        ''
-                    }
                     <input
                     type="text"
-                    value={loginValue}
-                    onChange={e => onLoginChange(e)}
+                    value={emailValue}
+                    onChange={e => onEmailChange(e)}
                     className='loginModal__form_input loginModal__form_input-login'
-                    placeholder="Логин"
-                    style={{border: loginRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
+                    placeholder="Почта"
+                    style={{border: emailRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
                     />
                     <input
-                    type="text"
+                    type="password"
                     value={passwordValue}
                     onChange={e => onPasswordChange(e)}
                     className='loginModal__form_input loginModal__form_input-password'
@@ -123,7 +119,9 @@ const LoginModal = () => {
                         </div>
                     </div>
                 </form>
-                <button className='loginModal__form_button' onClick={onButtonClick}>{isRegistartionForm ? "Зарегистрироваться" : "Войти"}</button>
+                <button className='loginModal__form_button' onClick={onButtonClick}>
+                    {isRegistartionForm ? "Зарегистрироваться" : "Войти"}
+                </button>
                 <div className="loginModal__form_registration">
                     <div onClick={onRegistartionForm}>{isRegistartionForm ? "Войти" : "Регистрация"}</div>
                 </div>
