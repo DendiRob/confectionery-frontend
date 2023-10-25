@@ -27,9 +27,12 @@ const LoginModal = () => {
     const [repeatPasswordRequired, setRepeatPasswordRequired] = useState(true)
     //checkebox
     const [checked, setChecked] = useState(false);
+    const [checkedRequired, setCheckRequired] = useState(true);
     //login or registration
     const [isRegistartionForm, setRegistartionForm] = useState(false);
 
+
+    //handlers
     const changeCheckBox: React.ChangeEventHandler<HTMLInputElement> = () => {
         setChecked(!checked)
     }
@@ -45,25 +48,57 @@ const LoginModal = () => {
         setPasswordValue(e.target.value);
         setPasswordRequired(true)
     }
-    const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-            const loginDto = {
-                email: emailValue,
-                password: passwordValue
-            }
-            if(isRegistartionForm){
-            dispatch(registration(loginDto))
-
-            }else{
-                dispatch(login(loginDto))
-            }
-    }
     const onRegistartionForm = () => {
         setRegistartionForm(!isRegistartionForm)
     }
     const onCloseModal = (e: MouseEvent) => {
-        setRegistartionForm(false)
         dispatch(closeLoginModal())
     }
+
+
+    const validateLoginInputs = () => {
+        if((passwordValue !== '' && emailValue !== '' && checked !== false)){
+            return true
+        }else{
+            (checked === false)? setCheckRequired(false): setCheckRequired(true);
+            (passwordValue === '')? setPasswordRequired(false) : setPasswordRequired(true);
+            (emailValue === '')? setEmailRequired(false): setEmailRequired(true);
+            return false
+        }
+    }
+    const clearInputs = () => {
+        setEmailRequired(true)
+        setPasswordRequired(true)
+        setCheckRequired(true)
+        setEmailValue('')
+        setPasswordValue('')
+        setChecked(false)
+        if(isRegistartionForm){
+            setRepeatPasswordRequired(true)
+            setRepeatPasswordValue('')
+        }
+    }
+    const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+            if(validateLoginInputs()){
+                const loginDto = {
+                    email: emailValue,
+                    password: passwordValue
+                }
+                if(isRegistartionForm){
+                    if(passwordValue === repeatPasswordValue){
+                        dispatch(registration(loginDto))
+                        clearInputs()
+                    }else {
+                        setPasswordRequired(false)
+                        setRepeatPasswordRequired(false)
+                    }
+                }else{
+                    dispatch(login(loginDto))
+                    clearInputs()
+                }
+            }
+    }
+
 
 
     return(
@@ -88,6 +123,7 @@ const LoginModal = () => {
                     />
                     <input
                     type="password"
+                    autoComplete="on"
                     value={passwordValue}
                     onChange={e => onPasswordChange(e)}
                     className='loginModal__form_input loginModal__form_input-password'
@@ -97,7 +133,8 @@ const LoginModal = () => {
                     {
                         isRegistartionForm ? 
                         <input
-                        type="text"
+                        type="password"
+                        autoComplete='on'
                         value={repeatPasswordValue}
                         onChange={e => onRepeatPasswordChange(e)}
                         className='loginModal__form_input loginModal__form_input-login'
@@ -107,16 +144,18 @@ const LoginModal = () => {
                         :
                         ''
                     }
-                    <div className="loginModal__form_checkDiv">
-                        <input 
+                    <div className={checkedRequired? "loginModal__form_checkDiv" : "loginModal__form_checkDiv loginModal__form_checkDiv-redBorder"}>
+                        <input
+                        name="checkbox"
+                        id='labelCheckbox'
                         type='checkbox'
                         checked={checked}
                         onChange={changeCheckBox}
                         className='loginModal__form_input loginModal__form_input-check'
                         />
-                        <div className='loginModal__form_input-checkTitle'>
+                        <label htmlFor="labelCheckbox" className='loginModal__form_input-checkTitle'>
                             Я согласен с <Link to='/privacypolicy' onClick={onCloseModal}>политикой обработки персональных данных</Link>
-                        </div>
+                        </label>
                     </div>
                 </form>
                 <button className='loginModal__form_button' onClick={onButtonClick}>
