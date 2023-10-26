@@ -1,8 +1,10 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { checkAuth } from '../../store/loginSlice';
 
 import Dashboard from '../dashboard/Dashboard';
 import ScrollToTop from '../../utils/ScrollToTop';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 
 const Page404 = lazy(() => import('../pages/404'));
@@ -20,6 +22,16 @@ const VacancyInfoPage = lazy(() => import('../pages/vacancyInfoPage/VacancyInfoP
 
 const App = () => {
     
+    const {isAuth} = useAppSelector(store => store.loginStates);
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if(localStorage.getItem('token')){
+           dispatch(checkAuth())
+        }
+    }, [dispatch])
+
+    console.log(isAuth)
     return(
         <Router>
             <ScrollToTop />
