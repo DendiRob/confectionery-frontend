@@ -35,6 +35,8 @@ export const registration = createAsyncThunk(
         try {
             const response = await AuthService.registration(email, password);
             localStorage.setItem('token', response.data.accessToken);
+            console.log(response.data)
+
             return {user: response.data.user}
         } catch (e: any) {
             console.log(e.response?.data?.message)
@@ -60,7 +62,6 @@ export const checkAuth = createAsyncThunk(
         try {
             const response = await axios.get<AuthResponse>(`${process.env.REACT_APP_BACK_URL}/refresh`, {withCredentials:true});
             localStorage.setItem('token', response.data.accessToken);
-            console.log(response)
             return {user: response.data.user}
         } catch (e: any) {
             console.log(e.response?.data?.message)
