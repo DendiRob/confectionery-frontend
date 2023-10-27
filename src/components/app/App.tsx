@@ -5,6 +5,7 @@ import { checkAuth } from '../../store/loginSlice';
 import Dashboard from '../dashboard/Dashboard';
 import ScrollToTop from '../../utils/ScrollToTop';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import Spinner from '../spinner/Spinner';
 
 
 const Page404 = lazy(() => import('../pages/404'));
@@ -22,7 +23,7 @@ const VacancyInfoPage = lazy(() => import('../pages/vacancyInfoPage/VacancyInfoP
 
 const App = () => {
     
-    const {isAuth} = useAppSelector(store => store.loginStates);
+    const {isAuth,isLoading} = useAppSelector(store => store.loginStates);
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -32,6 +33,9 @@ const App = () => {
     }, [])
 
     console.log(isAuth)
+    if(isLoading) {
+        return <Spinner />
+    }
     return(
         <Router>
             <ScrollToTop />

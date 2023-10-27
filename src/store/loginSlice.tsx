@@ -8,6 +8,7 @@ type initialStateTypes = {
     isRegisterFormOpen:boolean,
     user: IUser,
     isAuth: boolean,
+    isLoading: boolean
 
 };
 
@@ -74,6 +75,7 @@ const initialState: initialStateTypes = {
     isRegisterFormOpen: false,
     user: {} as IUser ,
     isAuth: false,
+    isLoading: false
 }
 
 
@@ -110,8 +112,12 @@ const LoginSlice = createSlice({
             if (action.payload) {
                 state.user = action.payload.user;
                 state.isAuth = true
-        }
-    })
+                state.isLoading = false
+            }
+        })
+        .addCase(checkAuth.pending, (state) => {
+            state.isLoading = true
+        })
     }
 })
 export default LoginSlice.reducer;
