@@ -16,19 +16,13 @@ type initialStateTypes = {
 export const fetchProducts = createAsyncThunk(
     'catalogState/fetchProducts',
     async function(skip: number = 0,{rejectWithValue}) {
-
         try {
             const response = await fetch(`${backendApi}/products/catalog?skip=${skip}`);
-
-            if(!response.ok ){
-                throw new Error('Server is broken')
-            }
             const data = response.json();
-
             return data
         } catch (error: unknown) {
             if(error instanceof Error){
-                rejectWithValue(error.message)
+                return rejectWithValue(error.message)
             }
         }
         
@@ -40,17 +34,13 @@ export const fetchSumProducts = createAsyncThunk(
 
         try {
             const responseSum = await fetch(`${backendApi}/products/sum`);
-            if(!responseSum.ok ){
-                throw new Error('Server is broken')
-            }
             const sum = responseSum.json();
 
             return sum
-            
-        } catch (error) {
-                if(error instanceof Error){
-                    rejectWithValue(error.message)
-                }
+        } catch (error: unknown) {
+            if(error instanceof Error){
+                return rejectWithValue(error.message)
+            }
 
         }
         
@@ -79,10 +69,11 @@ const CatalogSlice = createSlice({
             state.isLoading = true;
         })
         .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<productType[]>) => {
-            action.payload.map((item) => state.dataCatalog.push(item));
+            action.payload.map((item: any) => state.dataCatalog.push(item));
             state.isLoading = false;
         })
         .addCase(fetchProducts.rejected, (state) => {
+            console.log('fetchProducts')
             state.isLoading = false;
             state.catalogError = true;
         })

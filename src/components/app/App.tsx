@@ -30,7 +30,7 @@ const App = () => {
         if(localStorage.getItem('token')){
            dispatch(checkAuth())
         }
-    }, [])
+    }, [dispatch])
 
     console.log(isAuth)
     if(isLoading) {

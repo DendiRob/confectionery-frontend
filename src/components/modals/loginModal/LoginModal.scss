@@ -15,6 +15,11 @@
         z-index: 10;
         top: 0;
     }
+    &__validate-warning {
+        color: #fff;
+        font-size: 15px;
+        margin-left: 5px;
+    }
     &__title {
         color:  #fff;
         font-size: 27px;

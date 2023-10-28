@@ -49,7 +49,6 @@ const CatalogPage = () => {
         const anchorArrow: HTMLElement = document.getElementById('header')!;
         anchorArrow.scrollIntoView({behavior : 'smooth'})
     }
-
     
     return(
         <>
@@ -81,8 +80,8 @@ const CatalogPage = () => {
                             src={arrowUp} 
                             className="catalog__arrowUp" 
                         />
-                        {catalogError ? <img alt="error503" style={{width: '80%'}} src={error503} /> : ''}
                         {isLoading ? <Spinner /> : ''}
+                        {catalogError ? <img alt="error503" style={{width: '80%'}} src={error503} /> : ""}
                             {dataCatalog.map((product) => {
                                 return (
                                     <div key={product._id} className="catalog__products_item">

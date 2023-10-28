@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AuthService from "../services/AuthService";
 import { AuthResponse, IUser } from "../modelTypes/reponses";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 type initialStateTypes = {
     isModalActive: boolean,
     isRegisterFormOpen:boolean,
     user: IUser,
     isAuth: boolean,
-    isLoading: boolean
-
+    isLoading: boolean,
+    messageError: string,
+    authError: boolean,
 };
 
 type loginTypes = {
@@ -17,55 +18,66 @@ type loginTypes = {
     password: string,
 }
 
-export const login = createAsyncThunk(
+type payloadRejectTypes = {
+    message: string,
+    errors: any
+}
+
+export const login = createAsyncThunk<any,any,{
+    rejectValue: payloadRejectTypes
+  }>(
     'auth/login',
-    async ({email, password}: loginTypes) => {
+    async ({email, password}: loginTypes, {rejectWithValue}) => {
         try {
             const response = await AuthService.login(email, password);
             localStorage.setItem('token', response.data.accessToken);
             return {user: response.data.user}
-        } catch (e: any) {
-            console.log(e.response?.data?.message)
+        } catch (err: any) {
+            let error: AxiosError<payloadRejectTypes> = err;
+            return rejectWithValue(error.response?.data as payloadRejectTypes)
         }
     }
 )
 
-export const registration = createAsyncThunk(
+export const registration = createAsyncThunk<any,any,{
+    rejectValue: payloadRejectTypes
+  }>(
     'auth/registration',
-    async ({email, password}: loginTypes) => {
+    async ({email, password}: loginTypes, {rejectWithValue}) => {
         try {
             const response = await AuthService.registration(email, password);
             localStorage.setItem('token', response.data.accessToken);
             console.log(response.data)
 
             return {user: response.data.user}
-        } catch (e: any) {
-            console.log(e.response?.data?.message)
+        } catch (err: any) {
+            let error: AxiosError<payloadRejectTypes> = err;
+            return rejectWithValue(error.response?.data as payloadRejectTypes)
         }
     }
 )
 
 export const logout = createAsyncThunk(
     'auth/logout',
-    async () => {
+    async (_,{rejectWithValue}) => {
         try {
             await AuthService.logout();
             localStorage.removeItem('token');
-        } catch (e: any) {
-            console.log(e.response?.data?.message)
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data?.message)
         }
     }
 )
 
 export const checkAuth = createAsyncThunk(
     'auth/checkAuth',
-    async () => {
+    async (_,{rejectWithValue}) => {
         try {
             const response = await axios.get<AuthResponse>(`${process.env.REACT_APP_BACK_URL}/refresh`, {withCredentials:true});
             localStorage.setItem('token', response.data.accessToken);
             return {user: response.data.user}
-        } catch (e: any) {
-            console.log(e.response?.data?.message)
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data?.message)
         }
     }
 )
@@ -75,7 +87,10 @@ const initialState: initialStateTypes = {
     isRegisterFormOpen: false,
     user: {} as IUser ,
     isAuth: false,
-    isLoading: false
+    isLoading: false,
+    messageError: '',
+    authError: true,
+    
 }
 
 
@@ -89,6 +104,9 @@ const LoginSlice = createSlice({
         closeLoginModal(state) {
             state.isModalActive = false
         },
+        onFromChange(state) {
+            state.messageError = ''
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -96,16 +114,33 @@ const LoginSlice = createSlice({
             if (action.payload) {
                 state.user = action.payload.user
                 state.isAuth = true
+                state.authError = false
+                state.messageError = '';
               }
+        })
+        .addCase(login.rejected, (state, action) => {
+                if(action.payload){
+                    state.messageError = action.payload.message;
+                    state.authError = true
+                }
         })
         .addCase(registration.fulfilled, (state , action) => {
             if (action.payload) {
                 state.user = action.payload.user;
+                state.messageError = '';
                 state.isAuth = true
+                state.authError = false
               }
+        })
+        .addCase(registration.rejected,(state, action) => {
+            if(action.payload){
+                state.messageError = action.payload.message;
+                state.authError = true;
+            }
         })
         .addCase(logout.fulfilled, (state) => {
                 state.isAuth = false
+                state.authError = true
                 state.user = {} as IUser;
         })
         .addCase(checkAuth.fulfilled, (state, action) => {
@@ -118,7 +153,11 @@ const LoginSlice = createSlice({
         .addCase(checkAuth.pending, (state) => {
             state.isLoading = true
         })
+        .addCase(checkAuth.rejected, (state) => {
+            state.isLoading = false
+            state.isAuth = false
+        })
     }
 })
 export default LoginSlice.reducer;
-export const { openLoginModal, closeLoginModal } = LoginSlice.actions;
+export const { openLoginModal, closeLoginModal, onFromChange } = LoginSlice.actions;
