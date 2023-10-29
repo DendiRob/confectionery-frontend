@@ -11,6 +11,8 @@ type initialStateTypes = {
     isLoading: boolean,
     messageError: string,
     authError: boolean,
+    role: string,
+    enterLoading: boolean
 };
 
 type loginTypes = {
@@ -90,7 +92,8 @@ const initialState: initialStateTypes = {
     isLoading: false,
     messageError: '',
     authError: true,
-    
+    enterLoading: false,
+    role: ''
 }
 
 
@@ -110,19 +113,29 @@ const LoginSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+        .addCase(login.pending, (state) => {
+            state.enterLoading = true
+
+        })
         .addCase(login.fulfilled, (state , action) => {
             if (action.payload) {
                 state.user = action.payload.user
                 state.isAuth = true
                 state.authError = false
-                state.messageError = '';
-              }
+                state.messageError = ''
+                state.enterLoading = false
+                state.role = action.payload.user.role
+            }
         })
         .addCase(login.rejected, (state, action) => {
                 if(action.payload){
                     state.messageError = action.payload.message;
                     state.authError = true
+                    state.enterLoading = false
                 }
+        })
+        .addCase(registration.pending, (state) => {
+            state.enterLoading = true
         })
         .addCase(registration.fulfilled, (state , action) => {
             if (action.payload) {
@@ -130,24 +143,29 @@ const LoginSlice = createSlice({
                 state.messageError = '';
                 state.isAuth = true
                 state.authError = false
+                state.enterLoading = false
+                state.role = action.payload.user.role
               }
         })
         .addCase(registration.rejected,(state, action) => {
             if(action.payload){
                 state.messageError = action.payload.message;
                 state.authError = true;
+                state.enterLoading = false
             }
         })
         .addCase(logout.fulfilled, (state) => {
                 state.isAuth = false
                 state.authError = true
                 state.user = {} as IUser;
+                state.role = ''
         })
         .addCase(checkAuth.fulfilled, (state, action) => {
             if (action.payload) {
                 state.user = action.payload.user;
                 state.isAuth = true
                 state.isLoading = false
+                state.role = action.payload.user.role
             }
         })
         .addCase(checkAuth.pending, (state) => {
@@ -156,6 +174,7 @@ const LoginSlice = createSlice({
         .addCase(checkAuth.rejected, (state) => {
             state.isLoading = false
             state.isAuth = false
+            state.role = ''
         })
     }
 })

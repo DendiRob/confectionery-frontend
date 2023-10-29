@@ -7,12 +7,13 @@ import closeIcon from '../../../resources/icons/loginModal/closeIcon.svg';
 import './LoginModal.scss';
 import './LoginModal-media.scss';
 import { closeLoginModal, login, logout, onFromChange, registration } from '../../../store/loginSlice';
+import Spinner from '../../spinner/Spinner';
 
 //ещё политику надо добавить
 
 const LoginModal = () => {
 
-    const {isModalActive, isAuth, user, messageError, authError} = useAppSelector(state => state.loginStates)
+    const {isModalActive, isAuth, user, messageError, authError, enterLoading, role} = useAppSelector(state => state.loginStates)
     const dispatch = useAppDispatch()
     
 
@@ -121,7 +122,6 @@ const LoginModal = () => {
     }
 
 
-
     return(
         <div 
         className="loginModal__wrapper" 
@@ -133,78 +133,86 @@ const LoginModal = () => {
             <div className="loginModal" onClick={(e) => e.stopPropagation()}>
                 <img src={closeIcon} alt="closeModal" className="loginModal__close" onClick={onCloseModal}/>
                 {
-                    isAuth ?
-                    <>
-                        <div className='loginModal__greeting'>Привет,<br /> <span>{user.email}</span>!</div>
-                        <div className='loginModal__logout_wrapper'>
-                            <button className='loginModal__logout' onClick={onLogout}>Выйти</button>
-                        </div>
-                    </>
+                     isAuth ?
+                        <>
+                            <div className='loginModal__greeting'>Привет,<br /> <span>{user.email}</span>!</div>
+                            {role === 'admin'? <Link onClick={() => dispatch(closeLoginModal())} className='loginModal__adminLink' to='/adminpage'>Админ панель</Link> : ''}
+                            <div className='loginModal__logout_wrapper'>
+                                <button className='loginModal__logout' onClick={onLogout}>Выйти</button>
+                            </div>
+                        </>
                     :
                     <>
-                        <div className="loginModal__title">{isRegistartionForm ? "Регистрация" : "Войти"}</div>
-                        <form className='loginModal__form'>
-                            {authError ? <div className='loginModal__validate-warning'>{messageError}</div> : ''}
-                            <input
-                            type="email"
-                            value={emailValue}
-                            onChange={e => onEmailChange(e)}
-                            className='loginModal__form_input loginModal__form_input-login'
-                            placeholder="Почта"
-                            style={{border: emailRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
-                            />
-                            <input
-                            type="password"
-                            autoComplete="on"
-                            value={passwordValue}
-                            onChange={e => onPasswordChange(e)}
-                            className='loginModal__form_input loginModal__form_input-password'
-                            placeholder="Пароль"
-                            style={{border: passwordRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
-                            />
-                            {
-                                isRegistartionForm ? 
+                        {enterLoading ? 
+                        <div style={{marginTop: '20px'}}><Spinner /> </div>
+                        : 
+                        <>
+                            <div className="loginModal__title">{isRegistartionForm ? "Регистрация" : "Войти"}</div>
+                            <form className='loginModal__form'>
+                                {authError ? <div className='loginModal__validate-warning'>{messageError}</div> : ''}
+                                <input
+                                type="email"
+                                value={emailValue}
+                                onChange={e => onEmailChange(e)}
+                                className='loginModal__form_input loginModal__form_input-login'
+                                placeholder="Почта"
+                                style={{border: emailRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
+                                />
                                 <input
                                 type="password"
-                                autoComplete='on'
-                                value={repeatPasswordValue}
-                                onChange={e => onRepeatPasswordChange(e)}
-                                className='loginModal__form_input loginModal__form_input-login'
-                                placeholder="Повторите пароль"
-                                style={{border: repeatPasswordRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
+                                autoComplete="on"
+                                value={passwordValue}
+                                onChange={e => onPasswordChange(e)}
+                                className='loginModal__form_input loginModal__form_input-password'
+                                placeholder="Пароль"
+                                style={{border: passwordRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
                                 />
-                                :
-                                ''
-                            }
-                            <div className={checkedRequired? "loginModal__form_checkDiv" : "loginModal__form_checkDiv loginModal__form_checkDiv-redBorder"}>
                                 {
-                                isRegistartionForm ?   
-                                <>
+                                    isRegistartionForm ? 
                                     <input
-                                    name="checkbox"
-                                    id='labelCheckbox'
-                                    type='checkbox'
-                                    checked={checked}
-                                    onChange={changeCheckBox}
-                                    className='loginModal__form_input loginModal__form_input-check'
+                                    type="password"
+                                    autoComplete='on'
+                                    value={repeatPasswordValue}
+                                    onChange={e => onRepeatPasswordChange(e)}
+                                    className='loginModal__form_input loginModal__form_input-login'
+                                    placeholder="Повторите пароль"
+                                    style={{border: repeatPasswordRequired ? "1px solid #EDEDF0": "1px solid #E60000"}}
                                     />
-                                    <label htmlFor="labelCheckbox" className='loginModal__form_input-checkTitle'>
-                                        Я согласен с <Link to='/privacypolicy' onClick={onCloseModal}>политикой обработки персональных данных</Link>
-                                    </label>
-                                </>
                                     :
                                     ''
                                 }
+                                <div className={checkedRequired? "loginModal__form_checkDiv" : "loginModal__form_checkDiv loginModal__form_checkDiv-redBorder"}>
+                                    {
+                                    isRegistartionForm ?   
+                                    <>
+                                        <input
+                                        name="checkbox"
+                                        id='labelCheckbox'
+                                        type='checkbox'
+                                        checked={checked}
+                                        onChange={changeCheckBox}
+                                        className='loginModal__form_input loginModal__form_input-check'
+                                        />
+                                        <label htmlFor="labelCheckbox" className='loginModal__form_input-checkTitle'>
+                                            Я согласен с <Link to='/privacypolicy' onClick={onCloseModal}>политикой обработки персональных данных</Link>
+                                        </label>
+                                    </>
+                                        :
+                                        ''
+                                    }
+                                </div>
+                            </form>
+                            <button className='loginModal__form_button' onClick={onSubmitClick}>
+                                {isRegistartionForm ? "Зарегистрироваться" : "Войти"}
+                            </button>
+                            <div className="loginModal__form_registration">
+                                <div onClick={onRegistartionForm}>{isRegistartionForm ? "Войти" : "Регистрация"}</div>
                             </div>
-                        </form>
-                        <button className='loginModal__form_button' onClick={onSubmitClick}>
-                            {isRegistartionForm ? "Зарегистрироваться" : "Войти"}
-                        </button>
-                        <div className="loginModal__form_registration">
-                            <div onClick={onRegistartionForm}>{isRegistartionForm ? "Войти" : "Регистрация"}</div>
-                        </div>
+                        </>
+                        }
                     </>
                 }
+            
             </div> 
         </div>
     )

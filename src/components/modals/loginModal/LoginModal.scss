@@ -26,6 +26,18 @@
         text-align: center;
         margin-top: 25px;
     }
+    &__adminLink {
+        display: block;
+        width: 150px;
+        text-align: center;
+        margin: 0 auto;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 5px 20px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
     &__greeting {
         text-align: center;
         color: #fff;
