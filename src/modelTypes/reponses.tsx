@@ -11,3 +11,18 @@ export interface AuthResponse extends AxiosResponse {
     refreshToken: string,
     user: IUser
 }
+
+export interface IProduct {
+    title: string,
+    proteins: number,
+    fats: number,
+    carbohydrates: number,
+    photoPath: string,
+    productID: string,
+    energy: number,
+    expiration: number,
+    price: string,
+    composition: string,
+    box_weight: number,
+    isActive: boolean
+}
