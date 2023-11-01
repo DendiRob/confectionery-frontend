@@ -84,9 +84,12 @@ const CatalogPage = () => {
                         {catalogError ? <img alt="error503" style={{width: '80%'}} src={error503} /> : ""}
                             {dataCatalog.map((product) => {
                                 return (
+                                    product.isActive?
                                     <div key={product._id} className="catalog__products_item">
                                         <ProductCard product={product} />
                                     </div>
+                                    :
+                                    ''
                                 )
                             })} 
                     </div>

@@ -11,5 +11,6 @@ export type productType = {
     price: number,
     composition: string,
     description: string,
-    box_weight: number
+    box_weight: number,
+    isActive: boolean
 }
