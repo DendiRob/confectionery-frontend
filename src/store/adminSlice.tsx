@@ -2,9 +2,14 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { IProduct } from "../modelTypes/reponses";
 import AdminService from "../services/AdminService";
+import { newProducDataDto } from "../dtos/adminDtos";
 
 type initialStateTypes = {
     products: IProduct[]
+}
+type productBody = {
+    productID: string,
+    newProductData: newProducDataDto //нужно добавить,что именно за объект и в бэке тоже
 }
 
 const initialState: initialStateTypes = {
@@ -20,6 +25,13 @@ export const getProducts = createAsyncThunk(
         } catch (err: any) {
             return rejectWithValue(err)
         }
+    }
+)
+
+export const updateProduct = createAsyncThunk(
+    'admin/updateProduct',
+    async ({productID, newProductData}: productBody) => {
+        await AdminService.updateProduct(productID, newProductData)
     }
 )
 

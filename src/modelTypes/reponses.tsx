@@ -21,7 +21,7 @@ export interface IProduct {
     productID: string,
     energy: number,
     expiration: number,
-    price: string,
+    price: number,
     composition: string,
     box_weight: number,
     isActive: boolean

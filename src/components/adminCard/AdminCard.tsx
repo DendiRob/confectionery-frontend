@@ -4,6 +4,8 @@ import { IProduct } from '../../modelTypes/reponses';
 
 import './AdminCard.scss';
 import './AdminCard-media.scss';
+import { useAppDispatch } from '../../hooks/redux';
+import { updateProduct } from '../../store/adminSlice';
 
 type dataProduct = {
     dataProduct: IProduct
@@ -12,6 +14,7 @@ type dataProduct = {
 const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
 
     const {photoPath, productID, title, price, isActive} = dataProduct;
+    const dispatch = useAppDispatch();
 
 
     const [switchBox, setSwitchBox] = useState(isActive)
@@ -24,10 +27,21 @@ const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
         setProductTitle(e.target.value)
     }
     const onChangePrice: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setProductPrice(e.target.value)
+        setProductPrice(+e.target.value)
     }
     const onSwitchBoxChange: React.ChangeEventHandler<HTMLInputElement> = () => {
         setSwitchBox(!switchBox)
+    }
+    const commitChanges: React.MouseEventHandler<HTMLButtonElement> = () => {
+        const newProductDto = {
+            productID: productID,
+            newProductData: {
+                isActive: switchBox,
+                price: productPrice,
+                title: productTitle
+            }
+        }
+        dispatch(updateProduct(newProductDto))
     }
 
     return(
@@ -56,7 +70,7 @@ const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
                 </div>
             </div>
             <div className='adminCard__commit'>
-                <button className='adminCard__changeBtn'>Изменить</button>
+                <button onClick={commitChanges} className='adminCard__changeBtn'>Изменить</button>
                 <div className="adminCard__switcher">
                     <input 
                     checked={switchBox}
