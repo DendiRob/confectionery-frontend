@@ -12,4 +12,21 @@
         font-weight: 600;
         line-height: normal;
     }
+    &__selectPage {
+        display: flex;
+        width: 280px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        font-family: Montserrat;
+        color: #292929;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        text-transform: uppercase;
+        div {
+            cursor: pointer;
+        }
+    }
 }

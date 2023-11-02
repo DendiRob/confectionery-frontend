@@ -2,8 +2,8 @@ import {useState} from 'react';
 import { IProduct } from '../../modelTypes/reponses';
 
 
-import './AdminCard.scss';
-import './AdminCard-media.scss';
+import './AdminProductCard.scss';
+import './AdminProductCard-media.scss';
 import { useAppDispatch } from '../../hooks/redux';
 import { updateProduct } from '../../store/adminSlice';
 

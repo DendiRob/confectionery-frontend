@@ -26,3 +26,12 @@ export interface IProduct {
     box_weight: number,
     isActive: boolean
 }
+export interface IVacancy {
+    title: string,
+    conditions: string[],
+    duties: string[],
+    requirements: string[],
+    salary: string,
+    description: string,
+    isActive: boolean
+}

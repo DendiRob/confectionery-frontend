@@ -1,11 +1,12 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
-import { IProduct } from "../modelTypes/reponses";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { IProduct, IVacancy } from "../modelTypes/reponses";
 import AdminService from "../services/AdminService";
 import { newProducDataDto } from "../dtos/adminDtos";
 
 type initialStateTypes = {
-    products: IProduct[]
+    products: IProduct[],
+    vacancies: IVacancy[]
+
 }
 type productBody = {
     productID: string,
@@ -13,7 +14,8 @@ type productBody = {
 }
 
 const initialState: initialStateTypes = {
-    products: []
+    products: [],
+    vacancies: []
 }
 
 export const getProducts = createAsyncThunk(
