@@ -30,6 +30,18 @@ export const getProducts = createAsyncThunk(
     }
 )
 
+export const getVacancies = createAsyncThunk(
+    'admin/getVacancies',
+    async (_, {rejectWithValue}) => {
+        try {
+            const response = await AdminService.getVacancies();
+            return {vacancies: response.data}
+        } catch (err: any) {
+            return rejectWithValue(err)
+        }
+    }
+)
+
 export const updateProduct = createAsyncThunk(
     'admin/updateProduct',
     async ({productID, newProductData}: productBody) => {
@@ -46,6 +58,11 @@ const AdminSlice = createSlice({
         .addCase(getProducts.fulfilled, (state, action) => {
             if(action.payload){
                 action.payload.products.map((item: IProduct) => state.products.push(item));
+            }
+        })
+        .addCase(getVacancies.fulfilled, (state, action) => {
+            if(action.payload){
+                action.payload.vacancies.map((item: IVacancy) => state.vacancies.push(item));
             }
         })
     },

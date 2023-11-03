@@ -2,16 +2,15 @@ import {useState} from 'react';
 import { IProduct } from '../../modelTypes/reponses';
 
 
-import './AdminProductCard.scss';
-import './AdminProductCard-media.scss';
+import './AdminCatalogCard.scss';
+import './AdminCatalogCard-media.scss';
 import { useAppDispatch } from '../../hooks/redux';
 import { updateProduct } from '../../store/adminSlice';
 
 type dataProduct = {
     dataProduct: IProduct
 }
-
-const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
+const AdminCatalogCard: React.FC<dataProduct> = ({dataProduct}) => {
 
     const {photoPath, productID, title, price, isActive} = dataProduct;
     const dispatch = useAppDispatch();
@@ -45,14 +44,14 @@ const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
     }
 
     return(
-        <div className="adminCard">
-            <img src={photoPath} alt={`img number-${productID}`} className="adminCard__photo" />
-            <div className="adminCard__infoWrapper" >
+        <div className="adminCatalogCard">
+            <img src={photoPath} alt={`img number-${productID}`} className="adminCatalogCard__photo" />
+            <div className="adminCatalogCard__infoWrapper" >
                 <div>
                     <label htmlFor="itemName">Название</label>
                     <input 
                     type="text" 
-                    className="adminCard__name" 
+                    className="adminCatalogCard__name" 
                     id='itemName'
                     value={productTitle}
                     onChange={onChangeTitle}
@@ -62,16 +61,16 @@ const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
                     <label htmlFor="itemPrice">Цена</label>
                     <input 
                     type="text" 
-                    className="adminCard__price" 
+                    className="adminCatalogCard__price" 
                     id='itemPrice'
                     value={productPrice}
                     onChange={onChangePrice}
                     />
                 </div>
             </div>
-            <div className='adminCard__commit'>
-                <button onClick={commitChanges} className='adminCard__changeBtn'>Изменить</button>
-                <div className="adminCard__switcher">
+            <div className='adminCatalogCard__commit'>
+                <button onClick={commitChanges} className='adminCatalogCard__changeBtn'>Изменить</button>
+                <div className="adminCatalogCard__switcher">
                     <input 
                     checked={switchBox}
                     onChange={onSwitchBoxChange}
@@ -84,4 +83,4 @@ const AdminCard: React.FC<dataProduct> = ({dataProduct}) => {
         </div>
     )
 }
-export default AdminCard
+export default AdminCatalogCard

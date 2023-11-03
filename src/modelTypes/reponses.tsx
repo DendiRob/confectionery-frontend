@@ -33,5 +33,6 @@ export interface IVacancy {
     requirements: string[],
     salary: string,
     description: string,
-    isActive: boolean
+    isActive: boolean,
+    _id: string
 }

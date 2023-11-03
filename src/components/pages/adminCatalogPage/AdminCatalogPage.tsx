@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux';
 import {useEffect } from 'react'
-import AdminProductCard from '../../adminProductCard/AdminProductCard';
+import AdminCatalogCard from '../../adminCatalogCard/AdminCatalogCard';
 
 import './AdminCatalogPage.scss';
 import './AdminCatalogPage-media.scss';
@@ -17,8 +17,11 @@ const AdminCatalogPage: React.FC = () => {
     const { products } = useAppSelector(store => store.adminState);
 
     useEffect(() => {
-      dispatch(getProducts())
-    }, [])
+      if(products.length === 0){
+        dispatch(getProducts())
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch])
     
 
     return(
@@ -27,7 +30,7 @@ const AdminCatalogPage: React.FC = () => {
             <div className="adminCatalogPage__items">
                 {products.map((product) => {
                     return(
-                        <AdminProductCard key={product.productID} dataProduct={product}/>
+                        <AdminCatalogCard key={product.productID} dataProduct={product}/>
                     )     
                 })}
             </div>
