@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProduct, IVacancy } from "../modelTypes/reponses";
 import AdminService from "../services/AdminService";
-import { newProducDataDto } from "../dtos/adminDtos";
+import { newProductDataDto, newVacancyDataDto } from "../dtos/adminDtos";
 
 type initialStateTypes = {
     products: IProduct[],
@@ -10,8 +10,13 @@ type initialStateTypes = {
 }
 type productBody = {
     productID: string,
-    newProductData: newProducDataDto //нужно добавить,что именно за объект и в бэке тоже
+    newProductData: newProductDataDto //нужно добавить,что именно за объект и в бэке тоже
 }
+type vacancyBody = {
+    _id: string,
+    newVacancyData: newVacancyDataDto //нужно добавить,что именно за объект и в бэке тоже
+}
+
 
 const initialState: initialStateTypes = {
     products: [],
@@ -30,6 +35,13 @@ export const getProducts = createAsyncThunk(
     }
 )
 
+export const updateProduct = createAsyncThunk(
+    'admin/updateProduct',
+    async ({productID, newProductData}: productBody) => {
+        await AdminService.updateProduct(productID, newProductData)
+    }
+)
+
 export const getVacancies = createAsyncThunk(
     'admin/getVacancies',
     async (_, {rejectWithValue}) => {
@@ -41,13 +53,15 @@ export const getVacancies = createAsyncThunk(
         }
     }
 )
-
-export const updateProduct = createAsyncThunk(
-    'admin/updateProduct',
-    async ({productID, newProductData}: productBody) => {
-        await AdminService.updateProduct(productID, newProductData)
+//обработать ошибки надо
+export const updateVacancy = createAsyncThunk(
+    'admin/updateVacancy',
+    async ({_id, newVacancyData}: vacancyBody) => {
+        await AdminService.updateVacancy(_id, newVacancyData)
     }
 )
+
+
 
 const AdminSlice = createSlice({
     name: 'adminSlice',

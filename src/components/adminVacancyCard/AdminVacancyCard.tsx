@@ -1,10 +1,11 @@
 import {useState} from 'react';
 import { IVacancy } from '../../modelTypes/reponses';
 
+import { useAppDispatch } from '../../hooks/redux';
+import { updateVacancy } from '../../store/adminSlice';
 
 import './AdminVacancyCard.scss';
 import './AdminVacancyCard-media.scss';
-import { useAppDispatch } from '../../hooks/redux';
 
 type dataVacancy = {
     dataVacancy: IVacancy
@@ -17,16 +18,16 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
 
 
     const [switchBox, setSwitchBox] = useState(isActive)
-    const [productPrice, setProductPrice] = useState(salary)
-    const [productTitle, setProductTitle] = useState(title)
+    const [vacancySalary, setVacancyPrice] = useState(salary)
+    const [vacancyTitle, setVacancyTitle] = useState(title)
 
 
     
     const onChangeTitle: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setProductTitle(e.target.value)
+        setVacancyTitle(e.target.value)
     }
-    const onChangePrice: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setProductPrice(e.target.value)
+    const onChangeSalary: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        setVacancyPrice(e.target.value)
     }
     const onSwitchBoxChange: React.ChangeEventHandler<HTMLInputElement> = () => {
         setSwitchBox(!switchBox)
@@ -34,13 +35,13 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
     const commitChanges: React.MouseEventHandler<HTMLButtonElement> = () => {
         const newVacancyDto = {
             _id: _id,
-            newProductData: {
+            newVacancyData: {
                 isActive: switchBox,
-                price: productPrice,
-                title: productTitle
+                price: vacancySalary,
+                title: vacancyTitle
             }
         }
-        // dispatch(updateProduct(newVacancyDto))
+        dispatch(updateVacancy(newVacancyDto))
     }
 
     return(
@@ -52,7 +53,7 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                     type="text" 
                     className="adminVacancyCard__name" 
                     id='itemName'
-                    value={productTitle}
+                    value={vacancyTitle}
                     onChange={onChangeTitle}
                     />
                 </div>
@@ -62,8 +63,8 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                     type="text" 
                     className="adminVacancyCard__price" 
                     id='itemPrice'
-                    value={productPrice}
-                    onChange={onChangePrice}
+                    value={vacancySalary}
+                    onChange={onChangeSalary}
                     />
                 </div>
             </div>
