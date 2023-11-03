@@ -136,7 +136,7 @@ const LoginModal = () => {
                      isAuth ?
                         <>
                             <div className='loginModal__greeting'>Привет,<br /> <span>{user.email}</span>!</div>
-                            {role === 'admin'? <Link onClick={() => dispatch(closeLoginModal())} className='loginModal__adminLink' to='/adminpage'>Админ панель</Link> : ''}
+                            {role === 'admin'? <Link onClick={() => dispatch(closeLoginModal())} className='loginModal__adminLink' to='/adminpanel'>Админ панель</Link> : ''}
                             <div className='loginModal__logout_wrapper'>
                                 <button className='loginModal__logout' onClick={onLogout}>Выйти</button>
                             </div>

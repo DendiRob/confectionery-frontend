@@ -11,6 +11,7 @@ import AdminRoute from '../../privateRoutes/adminRoute';
 
 
 const Page404 = lazy(() => import('../pages/404'));
+const AdminCatalogPage = lazy(() => import('../pages/adminCatalogPage/AdminCatalogPage'));
 const AdminPage = lazy(() => import('../pages/adminPage/AdminPage'))
 const MainPage = lazy(() => import('../pages/mainPage/MainPage'));
 const VacancyPage = lazy(() => import('../pages/vacancyPage/VacancyPage'));
@@ -54,9 +55,14 @@ const App = () => {
                         <Route path="catalog/:productId" element={<SingleProductPage />} />
                         <Route path="privacypolicy" element={<PrivacyPolicyPage />} />
                         <Route path="*" element={<Page404/>} /> 
-                        <Route path="adminpage" element={
+                        <Route path="adminpanel" element={
                             <AdminRoute>
                                     <AdminPage />
+                            </AdminRoute>
+                        }/>
+                        <Route path="adminpanel/catalog" element={
+                            <AdminRoute>
+                                    <AdminCatalogPage />
                             </AdminRoute>
                         }/>
                     </Route>
