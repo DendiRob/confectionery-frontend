@@ -5,7 +5,9 @@ import { newProductDataDto, newVacancyDataDto } from "../dtos/adminDtos";
 
 type initialStateTypes = {
     products: IProduct[],
-    vacancies: IVacancy[]
+    vacancies: IVacancy[],
+    isVacancyModalOpen: boolean,
+    isCatalogModalOpen: boolean
 
 }
 type productBody = {
@@ -20,7 +22,9 @@ type vacancyBody = {
 
 const initialState: initialStateTypes = {
     products: [],
-    vacancies: []
+    vacancies: [],
+    isVacancyModalOpen: true,
+    isCatalogModalOpen: true
 }
 
 export const getProducts = createAsyncThunk(

@@ -4,7 +4,7 @@
     border-radius: 10px;
     height: 150px;
     display: grid;
-    grid-template-columns:150px 100px 1fr 150px;
+    grid-template-columns:150px 100px 1fr 150px 40px;
     margin-bottom: 5px;
     padding: 10px;
     &__infoWrapper {
@@ -98,6 +98,13 @@
         font-family: Montserrat;
         font-size: 14px;
         font-weight: 600;
+        cursor: pointer;
+    }
+    &__iconSetting {
+        grid-column-start: 5;
+        width: 40px;
+        margin-left: 5px;
+        margin-top: -5px;
         cursor: pointer;
     }
 }

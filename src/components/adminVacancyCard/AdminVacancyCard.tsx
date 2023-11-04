@@ -3,6 +3,7 @@ import { IVacancy } from '../../modelTypes/reponses';
 
 import { useAppDispatch } from '../../hooks/redux';
 import { updateVacancy } from '../../store/adminSlice';
+import Settings from '../../resources/icons/admin/settings.svg';
 
 import './AdminVacancyCard.scss';
 import './AdminVacancyCard-media.scss';
@@ -80,6 +81,7 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                     <label htmlFor={`turnSwitcher-${_id}`}></label>
                 </div>
             </div>
+            <img className='adminVacancyCard__iconSetting' src={Settings} alt="item settings" />
         </div>
     )
 }

@@ -3,8 +3,10 @@ import {useEffect } from 'react'
 
 import './AdminVacancyPage.scss';
 import './AdminVacancyPage-media.scss';
+
 import { getVacancies } from '../../../store/adminSlice';
 import AdminVacancyCard from '../../adminVacancyCard/AdminVacancyCard';
+import AdminVacancyModal from '../../modals/adminVacancyModal/AdminVacancyModal';
 
 
 //нужно будет сделать миддлевейр,который проверяет является ли запрос от админа
@@ -26,6 +28,7 @@ const AdminVacancyPage: React.FC = () => {
 
     return(
         <div className="container">
+            <AdminVacancyModal />
             <h1 className="adminVacancyPage__title">Настроика вакансии</h1>
             <div className="adminVacancyPage__items">
                 {vacancies.map((vacancy) => {
