@@ -15,7 +15,7 @@ import AdminVacancyModal from '../../modals/adminVacancyModal/AdminVacancyModal'
 const AdminVacancyPage: React.FC = () => {
     //настроить react helmet
     const dispatch = useAppDispatch()
-    const { vacancies } = useAppSelector(store => store.adminState);
+    const { vacancies, isVacancyModalOpen } = useAppSelector(store => store.adminState);
 
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const AdminVacancyPage: React.FC = () => {
 
     return(
         <div className="container">
-            <AdminVacancyModal />
+            {isVacancyModalOpen? <AdminVacancyModal /> : ''}
             <h1 className="adminVacancyPage__title">Настроика вакансии</h1>
             <div className="adminVacancyPage__items">
                 {vacancies.map((vacancy) => {
