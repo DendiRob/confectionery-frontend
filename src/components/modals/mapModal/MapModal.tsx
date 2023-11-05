@@ -54,7 +54,7 @@ const MapModal = () => {
                 <div className='yandexMap'>
                     <YandexMap />
                 </div>
-                <img onClick={(e) => dispatch(closeModal())} alt="closeIcon" src={closeIcon} className="mapModal__window_close"/>
+                <img onClick={() => dispatch(closeModal())} alt="closeIcon" src={closeIcon} className="mapModal__window_close"/>
             </div>
         </div>
     )

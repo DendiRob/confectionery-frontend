@@ -44,37 +44,52 @@
     &__settings .settings{
         &__input {
             display: block;
-        width: 100%;
-        margin-bottom: 20px;
-        height: 40px;
-        border-radius: 10px;
-        padding-left: 10px;
-        font-size: 17px;
-        outline: none;
-        border: none;
-        &_descr {
-            height: 100px;
-            resize: none;
-        }
-        &_duties {
-            height: 100px;
-            resize: none;
-        }
-        &_conditions {
-            height: 100px;
-            resize: none;
-        }
-        &_requirements {
-            height: 100px;
-            resize: none;
-        }
-        &_isActive {
-            &-title {
-                color: #fff;
-                font-size: 17px;
-                margin-bottom: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            height: 40px;
+            border-radius: 10px;
+            padding-left: 10px;
+            font-size: 17px;
+            outline: none;
+            border: none;
+            &_descr {
+                height: 100px;
+                resize: none;
+            }
+            &_duties {
+                height: 100px;
+                resize: none;
+            }
+            &_conditions {
+                height: 100px;
+                resize: none;
+            }
+            &_requirements {
+                height: 100px;
+                resize: none;
+            }
+            &_isActive {
+                &-title {
+                    color: #fff;
+                    font-size: 17px;
+                    margin-bottom: 10px;
+                }
             }
         }
+        &__btn {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            background-color: #41BFBF;
+            color: #fff;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
         }
         &__wrapper {
             &_checkbox {

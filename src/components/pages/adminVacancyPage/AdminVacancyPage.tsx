@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux';
-import {useEffect } from 'react'
+import {lazy, useEffect, useState } from 'react'
 
 import './AdminVacancyPage.scss';
 import './AdminVacancyPage-media.scss';
@@ -9,14 +9,14 @@ import AdminVacancyCard from '../../adminVacancyCard/AdminVacancyCard';
 import AdminVacancyModal from '../../modals/adminVacancyModal/AdminVacancyModal';
 
 
+
 //нужно будет сделать миддлевейр,который проверяет является ли запрос от админа
 
 const AdminVacancyPage: React.FC = () => {
     //настроить react helmet
-
-
     const dispatch = useAppDispatch()
     const { vacancies } = useAppSelector(store => store.adminState);
+
 
     useEffect(() => {
       if(vacancies.length === 0){
@@ -24,7 +24,7 @@ const AdminVacancyPage: React.FC = () => {
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch])
-    
+
 
     return(
         <div className="container">

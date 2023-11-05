@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProduct, IVacancy } from "../modelTypes/reponses";
 import AdminService from "../services/AdminService";
 import { newProductDataDto, newVacancyDataDto } from "../dtos/adminDtos";
+import { vacancyInfoType } from "../modelTypes/vacancyTypes";
 
 type initialStateTypes = {
     products: IProduct[],
     vacancies: IVacancy[],
     isVacancyModalOpen: boolean,
-    isCatalogModalOpen: boolean
+    isCatalogModalOpen: boolean,
+    changingVacancy: vacancyInfoType
 
 }
 type productBody = {
@@ -23,8 +25,9 @@ type vacancyBody = {
 const initialState: initialStateTypes = {
     products: [],
     vacancies: [],
-    isVacancyModalOpen: true,
-    isCatalogModalOpen: true
+    isVacancyModalOpen: false,
+    isCatalogModalOpen: true,
+    changingVacancy: {} as vacancyInfoType
 }
 
 export const getProducts = createAsyncThunk(
@@ -70,7 +73,17 @@ export const updateVacancy = createAsyncThunk(
 const AdminSlice = createSlice({
     name: 'adminSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        closeVacancyModal(state) {
+            state.isVacancyModalOpen = false;
+        },
+        openVacancyModal(state) {
+            state.isVacancyModalOpen = true;
+        },
+        onChangeVacancy(state, action) {
+            state.changingVacancy = action.payload;
+        }
+    },
     extraReducers(builder) {
         builder
         .addCase(getProducts.fulfilled, (state, action) => {
@@ -86,6 +99,8 @@ const AdminSlice = createSlice({
     },
 })
 export default AdminSlice.reducer;
-// export const {
-
-// } = AdminSlice.actions
+export const {
+    closeVacancyModal,
+    openVacancyModal,
+    onChangeVacancy
+} = AdminSlice.actions

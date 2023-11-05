@@ -2,14 +2,16 @@ import {useState} from 'react';
 import { IVacancy } from '../../modelTypes/reponses';
 
 import { useAppDispatch } from '../../hooks/redux';
-import { updateVacancy } from '../../store/adminSlice';
+import { onChangeVacancy, updateVacancy } from '../../store/adminSlice';
+import { openVacancyModal } from '../../store/adminSlice';
 import Settings from '../../resources/icons/admin/settings.svg';
+
 
 import './AdminVacancyCard.scss';
 import './AdminVacancyCard-media.scss';
 
-type dataVacancy = {
-    dataVacancy: IVacancy
+interface dataVacancy {
+    dataVacancy: IVacancy;
 }
 
 const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
@@ -44,6 +46,7 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
         }
         dispatch(updateVacancy(newVacancyDto))
     }
+
 
     return(
         <div className="adminVacancyCard">
@@ -81,7 +84,10 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                     <label htmlFor={`turnSwitcher-${_id}`}></label>
                 </div>
             </div>
-            <img className='adminVacancyCard__iconSetting' src={Settings} alt="item settings" />
+            <img className='adminVacancyCard__iconSetting' onClick={() => {
+                dispatch(onChangeVacancy(dataVacancy))
+                dispatch(openVacancyModal())
+                }} src={Settings} alt="item settings" />
         </div>
     )
 }
