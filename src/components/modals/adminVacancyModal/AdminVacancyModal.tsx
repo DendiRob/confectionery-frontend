@@ -40,13 +40,14 @@ const AdminVacancyModal = () => {
     const onRequirementsChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         const requirements = e.target.value;
         const newRequirements = requirements.split('\n');
+        console.log(newRequirements)
         setVacancyRequirements(newRequirements.join('\n').toString())
     }
 
     const onSubmitVacancy: React.MouseEventHandler<HTMLButtonElement> = () => {
-        const conditionsForDto = vacancyConditions.split('\n');
-        const dutiesForDto = vacancyDuties.split('\n');
-        const requirementsForDto = vacancyRequirements.split('\n');
+        const conditionsForDto = (vacancyConditions.trim() !== '')? vacancyConditions.split('\n') : [];
+        const dutiesForDto = (vacancyDuties.trim() !== '')? vacancyDuties.split('\n') : [];
+        const requirementsForDto = (vacancyRequirements.trim() !== '')? vacancyRequirements.split('\n') : [];
         const newVacancyDto = {
             _id: _id,
             newVacancyData: {
