@@ -20,31 +20,41 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
     const dispatch = useAppDispatch();
 
 
-    const [switchBox, setSwitchBox] = useState(isActive)
-    const [vacancySalary, setVacancyPrice] = useState(salary)
-    const [vacancyTitle, setVacancyTitle] = useState(title)
+    const [switchBox, setSwitchBox] = useState(isActive);
+    const [vacancySalary, setVacancySalary] = useState(salary);
+    const [requiredVacancySalary, setRequiredVacancySalary] = useState(true);
+    const [vacancyTitle, setVacancyTitle] = useState(title);
+    const [requiredVacancyTitle, setRequiredVacancyTitle] = useState(true);
+
 
 
     
     const onChangeTitle: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setVacancyTitle(e.target.value)
+        setVacancyTitle(e.target.value);
+        setRequiredVacancyTitle(true);
     }
     const onChangeSalary: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setVacancyPrice(e.target.value)
+        setVacancySalary(e.target.value);
+        setRequiredVacancySalary(true);
     }
     const onSwitchBoxChange: React.ChangeEventHandler<HTMLInputElement> = () => {
-        setSwitchBox(!switchBox)
+        setSwitchBox(!switchBox);
     }
     const commitChanges: React.MouseEventHandler<HTMLButtonElement> = () => {
         const newVacancyDto = {
             _id: _id,
             newVacancyData: {
                 isActive: switchBox,
-                price: vacancySalary,
+                salary: vacancySalary,
                 title: vacancyTitle
             }
         }
-        dispatch(updateVacancy(newVacancyDto))
+        if(vacancySalary.trim() !== '' && vacancyTitle !== ''){
+            dispatch(updateVacancy(newVacancyDto))
+        }else {
+            (vacancySalary.trim() !== '')? setRequiredVacancySalary(true): setRequiredVacancySalary(false);
+            (vacancyTitle.trim() !== '')? setRequiredVacancyTitle(true): setRequiredVacancyTitle(false);
+        }
     }
 
 
@@ -59,6 +69,7 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                     id='itemName'
                     value={vacancyTitle}
                     onChange={onChangeTitle}
+                    style={{border: requiredVacancyTitle ? "1px solid #000" : "1px solid #E60000"}}
                     />
                 </div>
                 <div>
@@ -69,6 +80,7 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                     id='itemPrice'
                     value={vacancySalary}
                     onChange={onChangeSalary}
+                    style={{border: requiredVacancySalary ? '1px solid #000' : "1px solid #E60000"}}
                     />
                 </div>
             </div>
