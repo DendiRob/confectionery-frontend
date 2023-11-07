@@ -1,5 +1,5 @@
 .adminPage {
-    padding-bottom: 70px;
+    padding: 0 20px 70px 20px;
     &__items {
         padding: 0 30px 200px 30px;
     }
@@ -35,25 +35,25 @@
             font-size: 25px;
             font-weight: 600;
             &_vacancy {
-                background-image: url('../../../resources/img/admin/admin-vacancy.jpg');
+                background: url('../../../resources/img/admin/admin-vacancy.jpg') no-repeat 50%/cover;
                 &:hover {
                     background: 
                     linear-gradient(
                     rgba(255, 255, 255, 0.5), 
                     rgba(255, 255, 255, 0.5)
                     ),
-                    url('../../../resources/img/admin/admin-vacancy.jpg');
+                    url('../../../resources/img/admin/admin-vacancy.jpg') no-repeat 50%/cover;
                 }
             }
             &_catalog {
-                background-image: url('../../../resources/img/admin/admin-catalog.jpg');
+                background: url('../../../resources/img/admin/admin-catalog.jpg') no-repeat 50%/cover;
                 &:hover {
                     background: 
                     linear-gradient(
                     rgba(255, 255, 255, 0.5), 
                     rgba(255, 255, 255, 0.5)
                     ),
-                    url('../../../resources/img/admin/admin-catalog.jpg');
+                    url('../../../resources/img/admin/admin-catalog.jpg') no-repeat 50%/cover;
                 }
             }
         }
