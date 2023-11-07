@@ -9,7 +9,8 @@ type initialStateTypes = {
     vacancies: IVacancy[],
     isVacancyModalOpen: boolean,
     isCatalogModalOpen: boolean,
-    changingVacancy: vacancyInfoType
+    changingVacancy: vacancyInfoType,
+    isItNewVacancy: boolean
 
 }
 type productBody = {
@@ -20,6 +21,9 @@ type vacancyBody = {
     _id: string,
     newVacancyData: newVacancyDataDto //нужно добавить,что именно за объект и в бэке тоже
 }
+type addVacancyBody = {
+    newVacancy: Omit<vacancyInfoType, '_id'>
+}
 
 
 const initialState: initialStateTypes = {
@@ -27,7 +31,8 @@ const initialState: initialStateTypes = {
     vacancies: [],
     isVacancyModalOpen: false,
     isCatalogModalOpen: true,
-    changingVacancy: {} as vacancyInfoType
+    changingVacancy: {} as vacancyInfoType,
+    isItNewVacancy: false
 }
 
 export const getProducts = createAsyncThunk(
@@ -68,6 +73,13 @@ export const updateVacancy = createAsyncThunk(
     }
 )
 
+export const addVacancy = createAsyncThunk(
+    'admin/addVacancy',
+    async ({ newVacancy }: addVacancyBody) => {
+        await AdminService.addVacancy(newVacancy)
+    }
+)
+
 
 
 const AdminSlice = createSlice({
@@ -82,6 +94,9 @@ const AdminSlice = createSlice({
         },
         onChangeVacancy(state, action) {
             state.changingVacancy = action.payload;
+        },
+        addNewVacancy(state,action) {
+            state.isItNewVacancy = action.payload;
         }
     },
     extraReducers(builder) {
@@ -102,5 +117,6 @@ export default AdminSlice.reducer;
 export const {
     closeVacancyModal,
     openVacancyModal,
-    onChangeVacancy
+    onChangeVacancy,
+    addNewVacancy
 } = AdminSlice.actions

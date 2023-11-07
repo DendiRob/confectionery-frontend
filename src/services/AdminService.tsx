@@ -14,7 +14,11 @@ export default class AdminService {
     static async getVacancies(): Promise<AxiosResponse> {
         return $api.get<IVacancy[]>('/vacancies')
     }
+    //с типами разобраться
     static async updateVacancy(_id: string, newVacancyData: newVacancyDataDto): Promise<AxiosResponse> {
         return $api.post<AxiosResponse>('/admin/update/vacancy', {_id, newVacancyData})
+    }
+    static async addVacancy(newVacancy: object): Promise<AxiosResponse> {
+        return $api.post<AxiosResponse>('/admin/add/vacancy', {newVacancy})
     }
 }

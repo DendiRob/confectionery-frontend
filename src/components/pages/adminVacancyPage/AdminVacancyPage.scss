@@ -12,4 +12,21 @@
         font-weight: 600;
         line-height: normal;
     }
+    &__addVacancy {
+        margin-right: 30px;
+        margin-left: auto;
+        margin-bottom: 20px;
+        width: 170px;
+        height: 50px;
+        cursor: pointer;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        background-color: #00a550;
+        color: #fff;
+    }
 }

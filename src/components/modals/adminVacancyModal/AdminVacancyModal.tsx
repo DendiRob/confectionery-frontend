@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import closeModal from '../../../resources/icons/adminModals/closeIcon.svg';
-import { closeVacancyModal, updateVacancy } from '../../../store/adminSlice';  
+import { addVacancy, closeVacancyModal, updateVacancy } from '../../../store/adminSlice';  
 import { useState } from 'react';
 
 import './AdminVacancyModal.scss';
@@ -9,7 +9,7 @@ import './AdminVacancyModal-media.scss';
 
 const AdminVacancyModal = () => {
 
-    const { isVacancyModalOpen, changingVacancy } = useAppSelector(store => store.adminState);
+    const { isVacancyModalOpen, changingVacancy, isItNewVacancy } = useAppSelector(store => store.adminState);
     const dispatch = useAppDispatch()
 
     const { title, salary, _id, description, isActive, conditions, duties, requirements} = changingVacancy;
@@ -48,20 +48,28 @@ const AdminVacancyModal = () => {
         const conditionsForDto = (vacancyConditions.trim() !== '')? vacancyConditions.split('\n') : [];
         const dutiesForDto = (vacancyDuties.trim() !== '')? vacancyDuties.split('\n') : [];
         const requirementsForDto = (vacancyRequirements.trim() !== '')? vacancyRequirements.split('\n') : [];
-        const newVacancyDto = {
+        const vacancyDataTemplate = {
+            isActive: isVacancyActive,
+            salary: vacancySalary,
+            title: vacancyTitle,
+            conditions: conditionsForDto,
+            requirements: requirementsForDto,
+            duties: dutiesForDto,
+            description: vacancyDescription
+        }
+        const updateVacancyDto = {
             _id: _id,
-            newVacancyData: {
-                isActive: isVacancyActive,
-                salary: vacancySalary,
-                title: vacancyTitle,
-                conditions: conditionsForDto,
-                requirements: requirementsForDto,
-                duties: dutiesForDto,
-                description: vacancyDescription
-            }
+            newVacancyData: vacancyDataTemplate
+        }
+        const addVacancyDto = {
+            newVacancy: vacancyDataTemplate
         }
         if(vacancySalary.trim() !== '' && vacancyTitle.trim() !== '' && vacancyDescription.trim() !== ''){
-            dispatch(updateVacancy(newVacancyDto))
+            if(isItNewVacancy){
+                dispatch(addVacancy(addVacancyDto))
+            }else {
+                dispatch(updateVacancy(updateVacancyDto))
+            }
         }else {
             (vacancySalary.trim() === '') ? setRequiredSalary(false) : setRequiredSalary(true);
             (vacancyTitle.trim() === '') ? setRequiredTitle(false) : setRequiredTitle(true);

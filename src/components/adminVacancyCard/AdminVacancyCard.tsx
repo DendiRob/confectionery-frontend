@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { IVacancy } from '../../modelTypes/reponses';
 
 import { useAppDispatch } from '../../hooks/redux';
-import { onChangeVacancy, updateVacancy } from '../../store/adminSlice';
+import { addNewVacancy, onChangeVacancy, updateVacancy } from '../../store/adminSlice';
 import { openVacancyModal } from '../../store/adminSlice';
 import Settings from '../../resources/icons/admin/settings.svg';
 
@@ -97,6 +97,7 @@ const AdminVacancyCard: React.FC<dataVacancy> = ({dataVacancy}) => {
                 </div>
             </div>
             <img className='adminVacancyCard__iconSetting' onClick={() => {
+                dispatch(addNewVacancy(false))
                 dispatch(onChangeVacancy(dataVacancy))
                 dispatch(openVacancyModal())
                 }} src={Settings} alt="item settings" />

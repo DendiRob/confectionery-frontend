@@ -1,10 +1,10 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux';
-import {lazy, useEffect, useState } from 'react'
+import {useEffect} from 'react'
 
 import './AdminVacancyPage.scss';
 import './AdminVacancyPage-media.scss';
 
-import { getVacancies } from '../../../store/adminSlice';
+import { getVacancies, addNewVacancy, openVacancyModal, onChangeVacancy } from '../../../store/adminSlice';
 import AdminVacancyCard from '../../adminVacancyCard/AdminVacancyCard';
 import AdminVacancyModal from '../../modals/adminVacancyModal/AdminVacancyModal';
 
@@ -30,6 +30,19 @@ const AdminVacancyPage: React.FC = () => {
         <div className="container">
             {isVacancyModalOpen? <AdminVacancyModal /> : ''}
             <h1 className="adminVacancyPage__title">Настроика вакансии</h1>
+            <div className="adminVacancyPage__addVacancy" onClick={() => {
+                dispatch(onChangeVacancy({
+                    isActive: false,
+                    salary: '',
+                    title: '',
+                    conditions: [],
+                    requirements: [],
+                    duties: [],
+                    description: ''
+                }))
+                dispatch(addNewVacancy(true));
+                dispatch(openVacancyModal())
+            }}>Добавить вакансию</div>
             <div className="adminVacancyPage__items">
                 {vacancies.map((vacancy) => {
                     return(
