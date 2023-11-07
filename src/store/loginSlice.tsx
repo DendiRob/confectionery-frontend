@@ -107,7 +107,7 @@ const LoginSlice = createSlice({
         closeLoginModal(state) {
             state.isModalActive = false
         },
-        onFromChange(state) {
+        onFormChange(state) {
             state.messageError = ''
         }
     },
@@ -179,4 +179,4 @@ const LoginSlice = createSlice({
     }
 })
 export default LoginSlice.reducer;
-export const { openLoginModal, closeLoginModal, onFromChange } = LoginSlice.actions;
+export const { openLoginModal, closeLoginModal, onFormChange } = LoginSlice.actions;

@@ -6,7 +6,7 @@ import closeIcon from '../../../resources/icons/loginModal/closeIcon.svg';
 
 import './LoginModal.scss';
 import './LoginModal-media.scss';
-import { closeLoginModal, login, logout, onFromChange, registration } from '../../../store/loginSlice';
+import { closeLoginModal, login, logout, onFormChange, registration } from '../../../store/loginSlice';
 import Spinner from '../../spinner/Spinner';
 
 //ещё политику надо добавить
@@ -38,20 +38,20 @@ const LoginModal = () => {
         setChecked(!checked)
     }
     const onRepeatPasswordChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setRepeatPasswordValue(e.target.value)
+        setRepeatPasswordValue(e.target.value.trim())
         setRepeatPasswordRequired(true)
     }
     const onEmailChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setEmailValue(e.target.value)
+        setEmailValue(e.target.value.trim())
         setEmailRequired(true)
     }
     const onPasswordChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setPasswordValue(e.target.value);
+        setPasswordValue(e.target.value.trim());
         setPasswordRequired(true)
     }
     const onRegistartionForm = () => {
         setRegistartionForm(!isRegistartionForm)
-        dispatch(onFromChange())
+        dispatch(onFormChange())
     }
     const onCloseModal = () => {
         dispatch(closeLoginModal())
